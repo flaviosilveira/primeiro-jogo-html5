@@ -4,43 +4,43 @@
         <title>Seu Primeiro Jogo - HTML5</title>
 		<style type="text/css">
 			canvas {
-			  border: 1px solid #000000;
+			  border: 1px solid #7c89df;
 			}
 		</style>
-    </head>   
+    </head>
     <body  onload="inicializar()">
 		<canvas id="canvas" width="600" height="480">
 			Navegador não suporta HTML5
 		</canvas>
-		
+
 		<script type="text/javascript">
-		
+
 			var barraAltura, barraLargura, jogadorPosicaoX, velocidadeJogador, bolaDiametro, bolaPosX, bolaPosY, velocidadeBola, pontosJogador, colisao;
-		
+
 			function inicializar()
 			{
-				barraAltura = 15;
-				barraLargura = 90;
-				
+				barraAltura = 19;
+				barraLargura = 92;
+
 				pontosJogador = 0;
 				jogadorPosicaoX = (canvas.width - barraLargura) / 2;
 				velocidadeJogador = 20;
-				
+
 				canvas = document.getElementById("canvas");
-				context = canvas.getContext("2d");				
-				
+				context = canvas.getContext("2d");
+
                 bolaDiametro = 10;
                 bolaPosX = canvas.width / 2;
                 bolaPosY = -10;
 				velocidadeBola = 10;
 				colisao = false;
-				
+
 				document.addEventListener('keydown', keyDown);
-				
+
 				setInterval(gameLoop, 30);
 			}
-			
-			function keyDown(e) 
+
+			function keyDown(e)
 			{
 				if(e.keyCode == 37)
 				{
@@ -49,7 +49,7 @@
 						jogadorPosicaoX -= velocidadeJogador;
 					}
 				}
-				
+
 				if(e.keyCode == 39)
 				{
 					if(jogadorPosicaoX < (canvas.width - barraLargura))
@@ -58,17 +58,17 @@
 					}
 				}
 			}
-			
+
 			function gameLoop()
 			{
 				//Limpa Tela
 				context.clearRect(0, 0, canvas.width, canvas.height);
-				
+
 				// Bola
 				context.beginPath();
                 context.arc(bolaPosX, bolaPosY, bolaDiametro, 0, Math.PI * 2, true);
                 context.fill();
-				
+
 				if(bolaPosY <= canvas.height)
 				{
 					bolaPosY += velocidadeBola;
@@ -79,23 +79,23 @@
 					bolaPosY = -10;
 					colisao = false;
 				}
-				
+
 				// Checar Colisão
 				if((bolaPosX > jogadorPosicaoX && bolaPosX < jogadorPosicaoX + barraLargura) && bolaPosY >= canvas.height - barraAltura && colisao == false)
 				{
 					pontosJogador++;
 					colisao = true;
 				}
-				
+
 				// Escreve placar
                 context.font = "32pt Tahoma";
 				context.fillText(pontosJogador, canvas.width - 70, 50);
-				
+
 				// Jogador
 				context.fillRect(jogadorPosicaoX, canvas.height - barraAltura, barraLargura, barraAltura);
 			}
-			
+
 		</script>
-		
+
 	</body>
 </html>
